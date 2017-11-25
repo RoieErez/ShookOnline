@@ -1,0 +1,14 @@
+﻿@model ShookOnline.Models.User
+
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm())
+{
+
+    <button type="submit" class="btn btn-block btn-social btn-facebook" style="width:50%" id="Facebook" name="provider" value="Facebook" title="Register">Register<i class="fa fa-facebook-official" aria-hidden="true"></i></button>
+}

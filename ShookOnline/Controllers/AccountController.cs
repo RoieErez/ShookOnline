@@ -69,11 +69,18 @@ namespace MVCApplication1.Controllers
         }
 
        
-
+       
         public ActionResult Register()
         {
 
-            return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(User user)
+        {
+
+            return View("Index","Home");
         }
     }
 }

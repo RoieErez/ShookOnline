@@ -30,7 +30,9 @@ namespace ShookOnline.Models
             providerKey = null;
         }
 
-       
+        public User()
+        {
+        }
 
         public async Task checkLogin(bool flag)
         {
