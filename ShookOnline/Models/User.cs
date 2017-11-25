@@ -37,9 +37,11 @@ namespace ShookOnline.Models
         {
             SqlManager manager = await SqlManager.getSqlManagerInstance();
             SqlDataReader dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
-            if (dr != null && dr.HasRows)
-                return;
-            dr.Close();
+            if (dr != null) { 
+                if (dr.HasRows)
+                    return;
+                dr.Close();
+            }
             await userRegister();
         }
 
