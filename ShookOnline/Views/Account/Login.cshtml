@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+
+@using (Html.BeginForm("Facebook", "Account", FormMethod.Post))
+{
+
+    <button type="submit" class="btn btn-block btn-social btn-facebook" style="width:50%" id="Facebook" name="provider" value="Facebook" title="Log in using your Facebook account">Facebook<i class="fa fa-facebook-official" aria-hidden="true"></i></button>
+}

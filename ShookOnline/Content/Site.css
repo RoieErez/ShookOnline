@@ -1,6 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url(http://bedrooms1.com/wp-content/uploads/2014/05/simple-blue-opera-background-light-49001.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -8,6 +11,7 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -22,3 +26,217 @@ select,
 textarea {
     max-width: 280px;
 }
+.navDesign {
+    background-color: rgba(246, 236, 235, 0.50);
+}
+
+
+/* side menu css */
+.img {
+    max-width: 100%;
+    height: auto;
+}
+
+.slider {
+    margin-top:100px;
+    width: 70vmin;
+    height: 70vmin;
+    -webkit-perspective: 100vmin;
+    perspective: 100vmin;
+    margin: auto;
+    -webkit-perspective-origin: top center;
+    perspective-origin: top center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.slider__item {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 15vmin;
+    box-sizing: border-box;
+    -webkit-transition: -webkit-transform 0.18s ease;
+    transition: -webkit-transform 0.18s ease;
+    transition: transform 0.18s ease;
+    transition: transform 0.18s ease, -webkit-transform 0.18s ease;
+}
+
+    .slider__item:nth-child(1) {
+        -webkit-transform: translate3d(0, 0, 0vmin);
+        transform: translate3d(0, 0, 0vmin);
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+        z-index: 7;
+    }
+
+    .slider__item:nth-child(2) {
+        -webkit-transform: translate3d(0, 0, -15vmin);
+        transform: translate3d(0, 0, -15vmin);
+        -webkit-transition-delay: 0.05s;
+        transition-delay: 0.05s;
+        z-index: 6;
+    }
+
+    .slider__item:nth-child(3) {
+        -webkit-transform: translate3d(0, 0, -30vmin);
+        transform: translate3d(0, 0, -30vmin);
+        -webkit-transition-delay: 0.1s;
+        transition-delay: 0.1s;
+        z-index: 5;
+    }
+
+    .slider__item:nth-child(4) {
+        -webkit-transform: translate3d(0, 0, -45vmin);
+        transform: translate3d(0, 0, -45vmin);
+        -webkit-transition-delay: 0.15s;
+        transition-delay: 0.15s;
+        z-index: 4;
+    }
+
+    .slider__item:nth-child(5) {
+        -webkit-transform: translate3d(0, 0, -60vmin);
+        transform: translate3d(0, 0, -60vmin);
+        -webkit-transition-delay: 0.2s;
+        transition-delay: 0.2s;
+        z-index: 3;
+    }
+
+    .slider__item:nth-child(6) {
+        -webkit-transform: translate3d(0, 0, -75vmin);
+        transform: translate3d(0, 0, -75vmin);
+        -webkit-transition-delay: 0.25s;
+        transition-delay: 0.25s;
+        z-index: 2;
+    }
+
+    .slider__item:nth-child(7) {
+        -webkit-transform: translate3d(0, 0, -90vmin);
+        transform: translate3d(0, 0, -90vmin);
+        -webkit-transition-delay: 0.3s;
+        transition-delay: 0.3s;
+        z-index: 1;
+    }
+
+    .slider__item:nth-child(8) {
+        -webkit-transform: translate3d(0, 0, -105vmin);
+        transform: translate3d(0, 0, -105vmin);
+        -webkit-transition-delay: 0.35s;
+        transition-delay: 0.35s;
+        z-index: 0;
+    }
+
+.slider__image {
+    width: 100%;
+    height: 80%;
+    background-color: #999;
+    border: 1.5vmin solid #eee;
+    box-sizing: border-box;
+    box-shadow: 0px 3vmin 3vmin rgba(0, 0, 0, 0.75), 0 -1.5vmin 2.7vmin rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    display: block;
+    -webkit-transition: opacity 0.2s ease, -webkit-transform 0.18s ease;
+    transition: opacity 0.2s ease, -webkit-transform 0.18s ease;
+    transition: transform 0.18s ease, opacity 0.2s ease;
+    transition: transform 0.18s ease, opacity 0.2s ease, -webkit-transform 0.18s ease;
+    -webkit-transform-origin: bottom center;
+    transform-origin: bottom center;
+}
+
+.slider__caption {
+    height: 20%;
+    font-weight: bold;
+    color: black;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.slider__btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 30px;
+    height: 45px;
+}
+
+ .slider__btn:active {
+    border-right-color: #dd6;
+    border-bottom-color: #dd6;
+    }
+
+.likebutton{
+    width:25px;
+    height:25px;
+    position:center;
+}
+
+.info{
+    margin-top:130px;
+    margin-right:300px;
+    z-index:1;
+}
+/*End of side menu CSS*/
+
+
+
+/*magnify css*/
+
+.magnify {
+    position: relative;
+    cursor: none
+}
+
+.magnify-large {
+    position: absolute;
+    display: none;
+    width: 175px;
+    height: 175px;
+    -webkit-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%
+}
+
+/*end of magnify css*/
+
+/*Landing CSS*/
+
+.content {
+    padding-top: 10%;
+    text-align: center;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1);
+}
+.hr {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    font-family: "Lato";
+    color: rgb(25, 38, 38);
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 5em;
+}
+.loginBottuns{
+    /*fill with need*/
+}
+/*Endof Landing CSS*/
