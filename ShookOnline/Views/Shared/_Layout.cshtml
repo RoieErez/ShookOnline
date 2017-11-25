@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-
-    <script async type="text/javascript" src="~/Scripts/SiteJS.js"></script>
+    @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/jquery")
+    @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/jqueryui")
+    @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/modernizr")
+    @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/SiteJS")
 </head>
 <body>
         @RenderBody()
