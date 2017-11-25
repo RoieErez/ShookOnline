@@ -11,36 +11,31 @@ namespace MarketMatch.Models
     public class SqlManager
     {
         private static SqlManager _instance;
-        private string ConnectionString;
-        private SqlConnection conn;
+        private static string ConnectionString;
+        private static SqlConnection conn;
         private SqlManager()
         {
             ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
         }
 
-
-        public async Task openConnection()
+        public async static Task<SqlManager> getSqlManagerInstance()
         {
-            try
-            {
-                conn = new SqlConnection(ConnectionString);
-                await conn.OpenAsync();
-            }
-            catch (Exception) { CloseConnection(); }
-
-
-        }
-        public static SqlManager getSqlManagerInstance()
-        {
-            if (_instance == null)
+            if (_instance == null){
                 _instance = new SqlManager();
+                try
+                {
+                    conn = new SqlConnection(ConnectionString);
+                    await conn.OpenAsync();
+                }
+                catch (Exception) { CloseConnection(); }
+            }
             return _instance;
 
         }
 
 
 
-        public void CloseConnection()
+        public static void CloseConnection()
         {
             if (conn != null && conn.State == ConnectionState.Open)
                 conn.Close();
@@ -57,6 +52,7 @@ namespace MarketMatch.Models
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception) { }
+                
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Facebook;
 using MarketMatch.Models;
+using ShookOnline.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -39,7 +40,7 @@ namespace MVCApplication1.Controllers
 
             return Redirect(loginUrl.AbsoluteUri);
         }
-        public ActionResult FacebookCallback(string code)
+        public async Task<ActionResult> FacebookCallback(string code)
         {
             var fb = new FacebookClient();
             dynamic result = fb.Post("oauth/access_token", new
@@ -48,7 +49,7 @@ namespace MVCApplication1.Controllers
                 client_secret = System.Configuration.ConfigurationManager.AppSettings["FacebookAppSecret"],
                 redirect_uri = RedirectUri.AbsoluteUri,
                 code = code
-            });   
+            });
             var accessToken = result.access_token;
 
             // Store the access token in the session
@@ -59,15 +60,12 @@ namespace MVCApplication1.Controllers
             fb.AccessToken = accessToken;
 
             // Get the user's information
-            dynamic me = fb.Get("me?fields=first_name,last_name,id,email");
-            string email = me.email;
-            string firstName = me.first_name;
-            string lastName = me.last_name;
-            string id = me.id;
-            // Set the auth cookie
-            FormsAuthentication.SetAuthCookie(email, false);
 
-            return RedirectToAction("CheckLogin", "Account",me.id);
+            User user = new User(fb.Get("me?fields=first_name,last_name,id,email"));
+
+            await user.checkSocialLogin();
+            return RedirectToAction("Index", "Home");
+          
         }
 
         public ActionResult Login()
@@ -76,15 +74,12 @@ namespace MVCApplication1.Controllers
             return View();
         }
 
-        public async Task<ActionResult> CheckLogin(string id)
+       
+
+        public ActionResult Register()
         {
 
-            SqlManager manager = SqlManager.getSqlManagerInstance();
-            await manager.openConnection();
-            SqlDataReader dr = manager.DataReader("select id from users where providerkey='" + id + "'");
-            if (dr.HasRows)
-                return RedirectToAction("Index","Home");
-            return View("Login");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
