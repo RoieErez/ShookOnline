@@ -156,6 +156,7 @@
     <Compile Include="SqlManager\SqlManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-social.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
