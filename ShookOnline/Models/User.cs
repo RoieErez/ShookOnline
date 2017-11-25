@@ -30,11 +30,20 @@ namespace ShookOnline.Models
             providerKey = null;
         }
 
-        public async Task checkSocialLogin()
+       
+
+        public async Task checkLogin(bool flag)
         {
             SqlManager manager = await SqlManager.getSqlManagerInstance();
-            SqlDataReader dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
-            if (dr != null) { 
+            SqlDataReader dr;
+            //social login
+            if (flag)
+                dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
+            //local login
+            else
+                dr = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
+            if (dr != null)
+            {
                 if (dr.HasRows)
                     return;
                 dr.Close();
@@ -45,7 +54,7 @@ namespace ShookOnline.Models
         private async Task userRegister()
         {
             SqlManager manager = await SqlManager.getSqlManagerInstance();
-            manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + null + "','" + email + "')");
+            manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
         }
     }
 }

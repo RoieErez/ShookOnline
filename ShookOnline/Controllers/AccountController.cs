@@ -57,7 +57,7 @@ namespace MVCApplication1.Controllers
 
             User user = new User(fb.Get("me?fields=first_name,last_name,id,email"));
 
-            await user.checkSocialLogin();
+            await user.checkLogin(true);
             return RedirectToAction("Index", "Home");
           
         }
