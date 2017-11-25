@@ -1,0 +1,90 @@
+﻿using Facebook;
+using MarketMatch.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+
+namespace MVCApplication1.Controllers
+{
+    public class AccountController : Controller
+    {
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
+
+        public ActionResult Facebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = System.Configuration.ConfigurationManager.AppSettings["FacebookAppId"],
+                client_secret = System.Configuration.ConfigurationManager.AppSettings["FacebookAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email" // Add other permissions as needed
+            });
+
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = System.Configuration.ConfigurationManager.AppSettings["FacebookAppId"],
+                client_secret = System.Configuration.ConfigurationManager.AppSettings["FacebookAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code
+            });   
+            var accessToken = result.access_token;
+
+            // Store the access token in the session
+            Session["AccessToken"] = accessToken;
+
+            // update the facebook client with the access token so
+            // we can make requests on behalf of the user
+            fb.AccessToken = accessToken;
+
+            // Get the user's information
+            dynamic me = fb.Get("me?fields=first_name,last_name,id,email");
+            string email = me.email;
+            string firstName = me.first_name;
+            string lastName = me.last_name;
+            string id = me.id;
+            // Set the auth cookie
+            FormsAuthentication.SetAuthCookie(email, false);
+
+            return RedirectToAction("CheckLogin", "Account",me.id);
+        }
+
+        public ActionResult Login()
+        {
+           
+            return View();
+        }
+
+        public async Task<ActionResult> CheckLogin(string id)
+        {
+
+            SqlManager manager = SqlManager.getSqlManagerInstance();
+            await manager.openConnection();
+            SqlDataReader dr = manager.DataReader("select id from users where providerkey='" + id + "'");
+            if (dr.HasRows)
+                return RedirectToAction("Index","Home");
+            return View("Login");
+        }
+    }
+}
