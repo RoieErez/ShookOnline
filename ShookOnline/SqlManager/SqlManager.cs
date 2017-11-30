@@ -34,7 +34,6 @@ namespace MarketMatch.Models
         }
 
 
-
         public static void CloseConnection()
         {
             if (_conn != null && _conn.State == ConnectionState.Open)
