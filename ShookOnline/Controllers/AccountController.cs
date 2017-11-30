@@ -34,7 +34,7 @@ namespace MVCApplication1.Controllers
 
             return Redirect(loginUrl.AbsoluteUri);
         }
-        public async Task<ActionResult> FacebookCallback(string code)
+        public ActionResult FacebookCallback(string code)
         {
             var fb = new FacebookClient();
             dynamic result = fb.Post("oauth/access_token", new
@@ -57,30 +57,37 @@ namespace MVCApplication1.Controllers
 
             User user = new User(fb.Get("me?fields=first_name,last_name,id,email"));
 
-            await user.checkLogin(true);
-            return RedirectToAction("Index", "Home");
-          
+            return user.checkLogin(true) ? RedirectToAction("Index", "Home") : RedirectToAction("TryRegister", "Account");
+
         }
 
-        public ActionResult Login()
-        {
-           
-            return View();
-        }
 
-       
-       
-        public ActionResult Register()
-        {
-
-            return View();
-        }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult CheckLogin(UserLogin u)
+        {
+            User user = new User(u);
+
+            return  user.checkLogin(false) ? RedirectToAction("Index", "Home") : RedirectToAction("TryRegister", "Account");
+        }
+
+
+        [HttpPost]
+        public ActionResult Register(UserRegister ur)
+        {
+            User user = new User(ur);
+            user.userRegister();
+            return View("Home",user);
+        }
+
+
+        
+        public ActionResult TryRegister()
         {
 
-            return View("Index","Home");
+            return View("Register");
         }
+
+       
     }
 }

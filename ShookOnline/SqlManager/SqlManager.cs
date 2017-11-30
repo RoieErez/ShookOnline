@@ -16,18 +16,19 @@ namespace MarketMatch.Models
         private SqlManager()
         {
             _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
+            try
+            {
+                _conn = new SqlConnection(_connectionString);
+                _conn.Open();
+            }
+            catch (Exception) { CloseConnection(); }
         }
 
-        public async static Task<SqlManager> getSqlManagerInstance()
+        public  static SqlManager getSqlManagerInstance()
         {
             if (_instance == null){
                 _instance = new SqlManager();
-                try
-                {
-                    _conn = new SqlConnection(_connectionString);
-                    await _conn.OpenAsync();
-                }
-                catch (Exception) { CloseConnection(); }
+               
             }
             return _instance;
 

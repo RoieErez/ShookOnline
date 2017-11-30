@@ -1,7 +1,8 @@
 ﻿using MarketMatch.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-
+using System;
 
 namespace ShookOnline.Models
 {
@@ -30,13 +31,44 @@ namespace ShookOnline.Models
             providerKey = null;
         }
 
+        /*default constructor*/
         public User()
         {
+            userName = password = email = providerKey = null;
         }
 
-        public async Task checkLogin(bool flag)
+        /*copy register user*/
+        public User(UserRegister u)
         {
-            SqlManager manager = await SqlManager.getSqlManagerInstance();
+            userName = u.UserName;
+            password = u.Password;
+            email = u.Email;
+            providerKey = null;
+        }
+
+        /*copy login user*/
+        public User(UserLogin u)
+        {
+            userName = u.UserName;
+            password = u.Password;
+            providerKey = null;
+            email = null;
+            //email = getEmail();
+
+        }
+
+        private string getEmail()
+        {
+
+            SqlDataReader dr = SqlManager.getSqlManagerInstance().DataReader("select email from users where email='" + email + "'and password='" + password + "'");
+            
+            
+            return dr?.GetString(0) ;
+        }
+
+        public bool checkLogin(bool flag)
+        {
+            SqlManager manager =  SqlManager.getSqlManagerInstance();
             SqlDataReader dr;
             //social login
             if (flag)
@@ -47,16 +79,54 @@ namespace ShookOnline.Models
             if (dr != null)
             {
                 if (dr.HasRows)
-                    return;
+                    return true;
                 dr.Close();
             }
-            await userRegister();
+            if (flag)
+            {
+                userRegister();
+                return true;
+            }
+            else
+                return false;
+            
         }
 
-        private async Task userRegister()
+        public void userRegister()
         {
-            SqlManager manager = await SqlManager.getSqlManagerInstance();
+            SqlManager manager =  SqlManager.getSqlManagerInstance();
             manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
         }
     }
+
+    public class UserRegister
+    {
+        [Required]
+        [StringLength(50 , ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        public string UserName { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(12, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        public string Password { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+    }
+
+
+    public class UserLogin
+    {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        public string Password { get; set; }
+
+    }
+
+
 }
