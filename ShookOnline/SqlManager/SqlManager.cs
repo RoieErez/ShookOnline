@@ -32,7 +32,7 @@ namespace MarketMatch.Models
             return _instance;
 
         }
-
+ 
 
         public static void CloseConnection()
         {
