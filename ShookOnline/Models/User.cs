@@ -3,10 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System;
+using System.Data;
+using System.Collections.ObjectModel;
 
 namespace ShookOnline.Models
 {
-    public class User
+    public class User : ObjectMapping<User>
     {
         public readonly string  providerKey ;
         public string userName { get; set; }
@@ -57,45 +59,46 @@ namespace ShookOnline.Models
 
         }
 
-        private string getEmail()
-        {
-
-            SqlDataReader dr = SqlManager.getSqlManagerInstance().DataReader("select email from users where email='" + email + "'and password='" + password + "'");
-            
-            
-            return dr?.GetString(0) ;
-        }
-
         public bool checkLogin(bool flag)
         {
-            SqlManager manager =  SqlManager.getSqlManagerInstance();
-            SqlDataReader dr;
-            //social login
-            if (flag)
-                dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
-            //local login
-            else
-                dr = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
-            if (dr != null)
+            using (SqlManager manager = SqlManager.getSqlManagerInstance())
             {
-                if (dr.HasRows)
+                manager.openConnection();
+                Collection<User> collection = new Collection<User>();
+                //social login
+                if (flag)
+                    collection = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
+                //local login
+                else
+                    collection = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
+                if (collection.Count > 0)
                     return true;
-                dr.Close();
+                if (flag)
+                {
+                    userRegister();
+                    return true;
+                }
+                else
+                    return false;
             }
-            if (flag)
-            {
-                userRegister();
-                return true;
-            }
-            else
-                return false;
-            
         }
 
         public void userRegister()
         {
-            SqlManager manager =  SqlManager.getSqlManagerInstance();
-            manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
+            using (SqlManager manager = SqlManager.getSqlManagerInstance())
+            {
+                manager.openConnection();
+                manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
+            }
+                
+        }
+
+        public override User Map(IDataRecord record)
+        {
+            User usr = new User();
+            usr.userName = record.GetString(2);
+            usr.email = record.GetString(4);
+            return usr;
         }
     }
 
@@ -111,9 +114,12 @@ namespace ShookOnline.Models
 
         [Required]
         [DataType(DataType.Password)]
+        [StringLength(12, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
         [Required]
         [EmailAddress]
+        [RegularExpression("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")]
         public string Email { get; set; }
 
     }
@@ -122,8 +128,11 @@ namespace ShookOnline.Models
     public class UserLogin
     {
         [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string UserName { get; set; }
         [Required]
+        [DataType(DataType.Password)]
+        [StringLength(12, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
 
     }

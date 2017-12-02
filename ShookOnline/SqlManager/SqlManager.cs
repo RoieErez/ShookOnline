@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ShookOnline.Models;
+using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Threading.Tasks;
+
 
 namespace MarketMatch.Models
 {
-    public class SqlManager
+    public class SqlManager : IDisposable
     {
         private static SqlManager _instance;
-        private static string _connectionString;
-        private static SqlConnection _conn;
+        private string _connectionString;
+        private SqlConnection _conn;
         private SqlManager()
         {
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
-            try
-            {
-                _conn = new SqlConnection(_connectionString);
-                _conn.Open();
-            }
-            catch (Exception) { CloseConnection(); }
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;           
         }
 
         public  static SqlManager getSqlManagerInstance()
@@ -33,13 +26,22 @@ namespace MarketMatch.Models
             return _instance;
 
         }
+        
+       public void openConnection()
+       {
+            if (_conn != null && _conn.State == ConnectionState.Closed)
+            {
+                _conn = new SqlConnection(_connectionString);
+                _conn.Open();
+            }
+       }
  
-         
-        public static void CloseConnection()
-        {
-            if (_conn != null && _conn.State == ConnectionState.Open)
-                _conn.Close();
-        }
+       public void closeConnection()
+       {
+           if (_conn != null && _conn.State == ConnectionState.Open)
+               _conn.Close();
+       }
+       
 
 
         public void ExecuteQueries(string Query_)
@@ -56,7 +58,7 @@ namespace MarketMatch.Models
             }
         }
 
-        public SqlDataReader DataReader(string Query_)
+        public Collection<User> DataReader(string Query_)
         {
             if (_conn != null && _conn.State == ConnectionState.Open)
             {
@@ -64,18 +66,21 @@ namespace MarketMatch.Models
                 {
                     SqlCommand cmd = new SqlCommand(Query_, _conn);
                     SqlDataReader dr = cmd.ExecuteReader();
-                    return dr;
+                    
+                    Collection<User> collection = new User().MapAll(dr);
+
+                    return collection;
                 }
                 catch (Exception) { }
             }
             return null;
         }
 
-        ~SqlManager()
-        {
-            if (_conn != null && _conn.State == ConnectionState.Open)
-                _conn.Close();
-        }
+        
 
+        public void Dispose()
+        {
+            closeConnection();
+        }
     }
 }
