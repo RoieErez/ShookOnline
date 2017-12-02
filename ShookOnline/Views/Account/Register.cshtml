@@ -28,60 +28,40 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="CheckLogin" method="post" role="form" style="display: block;">
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input type="text" name="username"  tabindex="1" class="form-control" placeholder="Username" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                            <input type="submit" name="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <fieldset>
-                                <form id="register-form" action="Register" method="post" role="form" style="display: none;">
-                                    <div class="form-group">
-                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" pattern=".{4,12}" title="User name must be at least 4 digits long" value="">
+                            <form id="register-form" action="Register" method="post" role="form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="text" name="UserName" tabindex="1" class="form-control" placeholder="Username" value="" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="Email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="Password" id="password1" tabindex="2" class="form-control" placeholder="Password" value="" pattern=".{8,12}" title="password must be 8-12 long">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="ConfirmPassword" id="confirm_password" tabindex="2" class="form-control" placeholder="Confirm Password" value="" pattern=".{8,12}" title="password must be 8-12 long">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password1" tabindex="2" class="form-control" pattern=".{8,12}" title="password must be 8-12 digits long" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="confirmpassword" id="confirm_password" tabindex="2" class="form-control" pattern=".{8,12}" title="password must be 8-12 digits long" placeholder="Confirm Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
-                                            </div>
-                                            =======
-                                            <form id="register-form" action="Register" method="post" role="form" style="display: none;">
-                                                <div class="form-group">
-                                                    <input type="text" name="UserName" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="email" name="Email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" name="Password" id="password" tabindex="2" class="form-control" placeholder="Password" value="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" name="ConfirmPassword" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" value="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-sm-offset-3">
-                                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
-                                                        </div>
-                                                    </div>
-                                            </form>
-                            </fieldset>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -118,6 +98,22 @@
 
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
+    $(function () {
+
+        $('#login-form-link').click(function (e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+        $('#register-form-link').click(function (e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+
+    });
 </script>
-
-
