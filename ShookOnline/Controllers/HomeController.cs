@@ -28,5 +28,12 @@ namespace ShookOnline.Controllers
         {
             return View();
         }
+
+        public ActionResult LogOff()
+        {
+            Session["UserName"] = null ; 
+
+            return View("Landing");
+        }
     }
 }
