@@ -103,9 +103,12 @@ namespace ShookOnline.Models
 
         [Required]
         [DataType(DataType.Password)]
+        [StringLength(12, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
         [Required]
         [EmailAddress]
+        [RegularExpression("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")]
         public string Email { get; set; }
 
     }
@@ -114,8 +117,11 @@ namespace ShookOnline.Models
     public class UserLogin
     {
         [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string UserName { get; set; }
         [Required]
+        [DataType(DataType.Password)]
+        [StringLength(12, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
 
     }

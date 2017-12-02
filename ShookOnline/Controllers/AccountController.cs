@@ -76,16 +76,18 @@ namespace MVCApplication1.Controllers
         public ActionResult Register(UserRegister ur)
         {
             User user = new User(ur);
-            user.userRegister();
+            //user.userRegister();
+            
             return View("Home",user);
         }
 
 
         
-        public ActionResult TryRegister()
+        public ActionResult TryRegister(UserRegister ur)
         {
-
-            return View("Register");
+            User user = new User(ur);
+            user.userRegister();
+            return View("Register",ur);
         }
 
        
