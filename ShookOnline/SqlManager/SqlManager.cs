@@ -1,5 +1,6 @@
 ﻿using ShookOnline.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -57,7 +58,7 @@ namespace MarketMatch.Models
             }
         }
 
-        public SqlDataReader DataReader(string Query_)
+        public Collection<User> DataReader(string Query_)
         {
             if (_conn != null && _conn.State == ConnectionState.Open)
             {
@@ -65,8 +66,9 @@ namespace MarketMatch.Models
                 {
                     SqlCommand cmd = new SqlCommand(Query_, _conn);
                     SqlDataReader dr = cmd.ExecuteReader();
-                    Collection<T> collection = new ObjectMapping().MapAll(dr);
-                    return dr;
+                    Collection<User> collection = new ObjectMapping<User>().MapAll(dr);
+
+                    return collection;
                 }
                 catch (Exception) { }
             }

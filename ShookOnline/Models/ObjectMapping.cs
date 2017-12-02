@@ -4,7 +4,7 @@ using System.Data;
 
 namespace ShookOnline.Models
 {
-    public abstract class ObjectMapping<T>
+    public class ObjectMapping<T>
     {
         public abstract T Map(IDataRecord record);
 

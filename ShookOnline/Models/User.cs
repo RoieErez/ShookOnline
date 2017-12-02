@@ -3,10 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System;
+using System.Data;
+using System.Collections.ObjectModel;
 
 namespace ShookOnline.Models
 {
-    public class User
+    public class User : ObjectMapping<User>
     {
         public readonly string  providerKey ;
         public string userName { get; set; }
@@ -61,19 +63,16 @@ namespace ShookOnline.Models
         {
             using (SqlManager manager = SqlManager.getSqlManagerInstance())
             {
-                SqlDataReader dr;
+                manager.openConnection();
+                Collection<User> collection = new Collection<User>();
                 //social login
                 if (flag)
-                    dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
+                    collection = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
                 //local login
                 else
-                    dr = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
-                if (dr != null)
-                {
-                    if (dr.HasRows)
-                        return true;
-                    dr.Close();
-                }
+                    collection = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
+                if (collection.Count > 0)
+                    return true;
                 if (flag)
                 {
                     userRegister();
@@ -87,7 +86,19 @@ namespace ShookOnline.Models
         public void userRegister()
         {
             using (SqlManager manager = SqlManager.getSqlManagerInstance())
+            {
+                manager.openConnection();
                 manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
+            }
+                
+        }
+
+        public override User Map(IDataRecord record)
+        {
+            User usr = new User();
+            usr.userName = record.GetString(2);
+            usr.email = record.GetString(4);
+            return usr;
         }
     }
 
