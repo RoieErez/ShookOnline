@@ -56,7 +56,7 @@ namespace MVCApplication1.Controllers
             // Get the user's information
 
             User user = new User(fb.Get("me?fields=first_name,last_name,id,email"));
-
+            Session["UserName"] = user.userName;
             return user.checkLogin(true) ? RedirectToAction("Index", "Home") : RedirectToAction("TryRegister", "Account");
 
         }
@@ -67,8 +67,12 @@ namespace MVCApplication1.Controllers
         public ActionResult CheckLogin(UserLogin u)
         {
             User user = new User(u);
-
-            return  user.checkLogin(false) ? RedirectToAction("Index", "Home") : RedirectToAction("TryRegister", "Account");
+            if(user.checkLogin(false))
+            {
+                Session["UserName"] = user.userName;
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("TryRegister", "Account");
         }
 
 
@@ -76,9 +80,10 @@ namespace MVCApplication1.Controllers
         public ActionResult Register(UserRegister ur)
         {
             User user = new User(ur);
-            //user.userRegister();
-            
-            return View("Home",user);
+            /*need to check in DB existing user*/
+            user.userRegister();
+            Session["UserName"] = user.userName;
+            return RedirectToAction("Index","Home",user);
         }
 
 

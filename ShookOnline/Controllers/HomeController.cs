@@ -1,10 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using ShookOnline.Models;
+using System.Web.Mvc;
 
 namespace ShookOnline.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(User u)
         {
             return View();
         }
@@ -26,6 +27,13 @@ namespace ShookOnline.Controllers
         public ActionResult Landing()
         {
             return View();
+        }
+
+        public ActionResult LogOff()
+        {
+            Session["UserName"] = null ; 
+
+            return View("Landing");
         }
     }
 }
