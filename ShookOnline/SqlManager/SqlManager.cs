@@ -69,7 +69,7 @@ namespace MarketMatch.Models
                     SqlDataReader dr = cmd.ExecuteReader();
                     
                     Collection<User> collection = new User().MapAll(dr);
-
+                    dr.Close();
                     return collection;
                 }
                 catch (Exception) { }
