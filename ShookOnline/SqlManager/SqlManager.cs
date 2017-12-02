@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShookOnline.Models;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,8 +13,7 @@ namespace MarketMatch.Models
         private SqlConnection _conn;
         private SqlManager()
         {
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
-            _conn = new SqlConnection(_connectionString);           
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;           
         }
 
         public  static SqlManager getSqlManagerInstance()
@@ -29,7 +29,10 @@ namespace MarketMatch.Models
        public void openConnection()
        {
             if (_conn != null && _conn.State == ConnectionState.Closed)
-                _conn.Open(); 
+            {
+                _conn = new SqlConnection(_connectionString);
+                _conn.Open();
+            }
        }
  
        public void closeConnection()
@@ -62,6 +65,7 @@ namespace MarketMatch.Models
                 {
                     SqlCommand cmd = new SqlCommand(Query_, _conn);
                     SqlDataReader dr = cmd.ExecuteReader();
+                    Collection<T> collection = new ObjectMapping().MapAll(dr);
                     return dr;
                 }
                 catch (Exception) { }
