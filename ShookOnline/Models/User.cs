@@ -57,45 +57,37 @@ namespace ShookOnline.Models
 
         }
 
-        private string getEmail()
-        {
-
-            SqlDataReader dr = SqlManager.getSqlManagerInstance().DataReader("select email from users where email='" + email + "'and password='" + password + "'");
-            
-            
-            return dr?.GetString(0) ;
-        }
-
         public bool checkLogin(bool flag)
         {
-            SqlManager manager =  SqlManager.getSqlManagerInstance();
-            SqlDataReader dr;
-            //social login
-            if (flag)
-                dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
-            //local login
-            else
-                dr = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
-            if (dr != null)
+            using (SqlManager manager = SqlManager.getSqlManagerInstance())
             {
-                if (dr.HasRows)
+                SqlDataReader dr;
+                //social login
+                if (flag)
+                    dr = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
+                //local login
+                else
+                    dr = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
+                if (dr != null)
+                {
+                    if (dr.HasRows)
+                        return true;
+                    dr.Close();
+                }
+                if (flag)
+                {
+                    userRegister();
                     return true;
-                dr.Close();
+                }
+                else
+                    return false;
             }
-            if (flag)
-            {
-                userRegister();
-                return true;
-            }
-            else
-                return false;
-            
         }
 
         public void userRegister()
         {
-            SqlManager manager =  SqlManager.getSqlManagerInstance();
-            manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
+            using (SqlManager manager = SqlManager.getSqlManagerInstance())
+                manager.ExecuteQueries("insert into users values('" + providerKey + "','" + userName + "','" + password + "','" + email + "')");
         }
     }
 

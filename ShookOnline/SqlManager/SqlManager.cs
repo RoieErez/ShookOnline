@@ -8,20 +8,15 @@ using System.Threading.Tasks;
 
 namespace MarketMatch.Models
 {
-    public class SqlManager
+    public class SqlManager : IDisposable
     {
         private static SqlManager _instance;
-        private static string _connectionString;
-        private static SqlConnection _conn;
+        private string _connectionString;
+        private SqlConnection _conn;
         private SqlManager()
         {
             _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
-            try
-            {
-                _conn = new SqlConnection(_connectionString);
-                _conn.Open();
-            }
-            catch (Exception) { CloseConnection(); }
+            _conn = new SqlConnection(_connectionString);           
         }
 
         public  static SqlManager getSqlManagerInstance()
@@ -33,13 +28,19 @@ namespace MarketMatch.Models
             return _instance;
 
         }
+        
+       public void openConnection()
+       {
+            if (_conn != null && _conn.State == ConnectionState.Closed)
+                _conn.Open(); 
+       }
  
-         
-        public static void CloseConnection()
-        {
-            if (_conn != null && _conn.State == ConnectionState.Open)
-                _conn.Close();
-        }
+       public void closeConnection()
+       {
+           if (_conn != null && _conn.State == ConnectionState.Open)
+               _conn.Close();
+       }
+       
 
 
         public void ExecuteQueries(string Query_)
@@ -71,11 +72,9 @@ namespace MarketMatch.Models
             return null;
         }
 
-        ~SqlManager()
+        public void Dispose()
         {
-            if (_conn != null && _conn.State == ConnectionState.Open)
-                _conn.Close();
+            closeConnection();
         }
-
     }
 }
