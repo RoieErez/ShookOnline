@@ -14,7 +14,8 @@ namespace MarketMatch.Models
         private SqlConnection _conn;
         private SqlManager()
         {
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;           
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
+            _conn = new SqlConnection(_connectionString);
         }
 
         public  static SqlManager getSqlManagerInstance()
@@ -31,7 +32,7 @@ namespace MarketMatch.Models
        {
             if (_conn != null && _conn.State == ConnectionState.Closed)
             {
-                _conn = new SqlConnection(_connectionString);
+                
                 _conn.Open();
             }
        }
