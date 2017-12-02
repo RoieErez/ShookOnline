@@ -88,6 +88,10 @@ namespace MVCApplication1.Controllers
             return View("Register");
         }
 
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
        
     }
 }
