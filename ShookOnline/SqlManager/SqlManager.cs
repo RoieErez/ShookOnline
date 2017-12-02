@@ -66,7 +66,8 @@ namespace MarketMatch.Models
                 {
                     SqlCommand cmd = new SqlCommand(Query_, _conn);
                     SqlDataReader dr = cmd.ExecuteReader();
-                    Collection<User> collection = new ObjectMapping<User>().MapAll(dr);
+                    
+                    Collection<User> collection = new User().MapAll(dr);
 
                     return collection;
                 }
