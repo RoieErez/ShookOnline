@@ -76,9 +76,9 @@ namespace MVCApplication1.Controllers
         public ActionResult Register(UserRegister ur)
         {
             User user = new User(ur);
-            //user.userRegister();
+            user.userRegister();
             
-            return View("Home",user);
+            return RedirectToAction("Index","Home",user);
         }
 
 
