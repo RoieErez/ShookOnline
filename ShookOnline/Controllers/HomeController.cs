@@ -17,7 +17,7 @@ namespace ShookOnline.Controllers
 
         public ActionResult LogOff()
         {
-            Session["UserName"] = null ; 
+            Session.Clear();
 
             return View("Landing");
         }
