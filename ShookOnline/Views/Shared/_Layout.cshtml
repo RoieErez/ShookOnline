@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Only Second hand dating app</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Scripts.RenderFormat(@"<script src="" {0}"" ></script>", "~/bundles/jquery")
     @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/modernizr")
@@ -24,9 +25,9 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div class="collapse navbar-collapse" id="bs-navbar-home">
+            <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
+                    <li class="dropdown"> <!--My own catagory id-->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Categories<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="fa fa-car" aria-hidden="true"></i> Cars</a></li>
@@ -42,14 +43,26 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#">  Other</a></li>
                         </ul>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    @if (Session["UserName"] != null)
-                    {
-
-                        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> @Session["UserName"].ToString() <span class="caret"></span></a></li>
-                        <li>@Html.ActionLink("Log Off", "LogOff", "Home")</li>
+                        @if (Session["UserName"] != null)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> @Session["UserName"].ToString() <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <!-- put all the profile stuff-->
+                                    <li>
+                                        <div class="col col_4 iamgurdeep-pic">
+                                            <img class="img-responsive iconImg" alt="iconImg" src="http://www.professionalclick.com/images/default.jpg"><!--put the user img-->
+                                            <div class="username">
+                                                <h2>@Session["UserName"].ToString() </h2>
+                                                <small><i class="fa fa-map-marker"></i> "Location"</small>
+                                                <button class="btn-o"><i class="fa fa-user-times" aria-hidden="true"></i> @Html.ActionLink("Log Off", "LogOff", "Home")</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                 </ul>
+                            </li>
                     }
                     else
                     {
@@ -61,8 +74,86 @@
         </div>
     </nav>
         @RenderBody()
-
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <style>
+           * {
+               margin: 0;
+               padding: 0;
+               -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+               box-sizing: border-box;
+           }
+
+           .username {
+               bottom: 0;
+               color: #ffffff;
+               padding: 30px 15px 4px;
+               position: absolute;
+               width: 100%;
+               text-shadow: 1px 1px 2px #000000;
+               background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* FF3.6-15 */
+               background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* Chrome10-25,Safari5.1-6 */
+               background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #2d2c41 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a64d4d4d',GradientType=0 ); /* IE6-9 */
+           }
+
+           .username > h2 {
+               font-family: oswald;
+               font-size: 20px;
+               font-weight: lighter;
+               margin: 31px 0 4px;
+               position: relative;
+               text-shadow: 1px 1px 2px #000000;
+               text-transform: uppercase;
+           }
+
+               .username > h2 small {
+                   color: #ffffff;
+                   font-family: open sans;
+                   font-size: 13px;
+                   font-weight: 400;
+                   position: relative;
+               }
+
+           .btn-o {
+               background-color: rgba(255, 255, 255, 0.1);
+               border: 1px solid rgba(255, 255, 255, 0.5);
+               border-radius: 2px;
+               color: #ffffff !important;
+               display: inline-block;
+               font-family: open sans;
+               font-size: 15px !important;
+               font-weight: normal !important;
+               margin: 0 0 10px;
+               padding: 5px 11px;
+               text-decoration: none !important;
+               text-transform: uppercase;
+               background-color: rgba(255, 255, 255, 0.1);
+               -webkit-transition: all 0.4s ease;
+               -o-transition: all 0.4s ease;
+               transition: all 0.4s ease;
+           }
+
+               .btn-o:hover {
+                   background-color: rgba(255, 255, 255, 0.4);
+                   color: #fff !important;
+               }
+
+            .btn-o:focus {
+                background: #dbd9d9;
+                color: #fff;
+                border: 1px solid #dbd9d9;
+            }
+           ul {
+               list-style-type: none;
+           }
+
+        a {
+            color: #dbd9d9;
+            text-decoration: none;
+        }
+
+    </style>   
 </body>
 </html>
