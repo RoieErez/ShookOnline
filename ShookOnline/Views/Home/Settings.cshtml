@@ -16,9 +16,10 @@
                     <a href="#" target="_blank" class="fa fa-google"></a>
                 </div>
                 <div class="username">
-                    <h2>@Session["UserName"].ToString()</h2> 
-                    <small><i class="fa fa-map-marker"></i> "Location"</small>
-                    
+                    <h2>
+                        @Session["UserName"].ToString()
+                    <small><i class="fa fa-map-marker"></i> @Session["Location"].ToString()</small>
+                </h2> 
                     <button class="btn-o"><i class="fa fa-user-times" aria-hidden="true"></i>  @Html.ActionLink("Log Off", "LogOff", "Home")</button>
                     <button class="btn-o"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit Details</button>
                     <ul class="nav navbar-nav"></ul>

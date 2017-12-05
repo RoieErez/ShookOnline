@@ -57,6 +57,7 @@ namespace MVCApplication1.Controllers
 
             User user = new User(fb.Get("me?fields=first_name,last_name,id,email"));
             Session["UserName"] = user.userName;
+            Session["Location"] = user.location;
             return user.checkLogin(true) ? RedirectToAction("Index", "Home") : RedirectToAction("TryRegister", "Account");
 
         }

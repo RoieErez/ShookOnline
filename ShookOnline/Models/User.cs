@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System;
 using System.Data;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace ShookOnline.Models
 {
@@ -14,7 +15,7 @@ namespace ShookOnline.Models
         public string userName { get; set; }
         public string password { get; set; }
         public string email { get; set; }
-
+        public string location { get; }
         /*copy constructor for social login*/
         public User(dynamic user)
         {
@@ -22,6 +23,7 @@ namespace ShookOnline.Models
             email = user.email;
             userName = user.first_name + " " + user.last_name;
             password = null;
+            location= RegionInfo.CurrentRegion.DisplayName;
         }
 
         /*copy constructor*/
@@ -31,6 +33,7 @@ namespace ShookOnline.Models
             userName = user.userName;
             password = user.password;
             providerKey = null;
+            location = RegionInfo.CurrentRegion.DisplayName;
         }
 
         /*default constructor*/
@@ -46,6 +49,7 @@ namespace ShookOnline.Models
             password = u.Password;
             email = u.Email;
             providerKey = null;
+            location = RegionInfo.CurrentRegion.DisplayName;
         }
 
         /*copy login user*/
@@ -56,6 +60,7 @@ namespace ShookOnline.Models
             providerKey = null;
             email = null;
             //email = getEmail();
+            location = RegionInfo.CurrentRegion.DisplayName;
 
         }
 

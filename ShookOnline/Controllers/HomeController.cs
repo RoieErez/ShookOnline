@@ -15,7 +15,7 @@ namespace ShookOnline.Controllers
             return View();
         }
         public ActionResult Settings()
-        {
+        {   
             return View();
         }
         public ActionResult LogOff()
