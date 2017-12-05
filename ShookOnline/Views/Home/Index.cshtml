@@ -2,78 +2,218 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="slider">
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/utils/Draggable.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
+
+<div class="Selector">
+    <div class="app">
+        <div class="content">
         </div>
-        <figcaption class="slider__caption">
-            <div class="info">
-                <div class="row">
-                    <div class="price col-md-6">
-                        <h5>
-                            Sample Product
-                        </h5>
-                        <h5 class="price-text-color">
-                            $199.99
-                        </h5>
-                    </div>
-                    <div class="rating hidden-sm col-md-6">
-                        <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                        </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                        </i><i class="fa fa-star"></i>
-                    </div>
-                </div>
-                <div class="separator clear-left">
-                    <p class="btn-add">
-                        <i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Add to cart</a>
-                    </p>
-                    <p class="btn-details">
-                        <i class="fa fa-list"></i><a href="#" class="hidden-sm">More details</a>
-                    </p>
-                </div>
-                <div class="clearfix">
-                </div>
-            </div>
-        </figcaption>
-    </figure>
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
+        <div class="footer">
+            <div id="swipe_dislike" class="rate"></div>
+            <div class="info"></div>
+            <div id="swipe_like" class="rate"></div>
         </div>
-        <figcaption class="slider__caption"></figcaption>
-    </figure>
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
-        </div>
-        <figcaption class="slider__caption"></figcaption>
-    </figure>
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
-        </div>
-        <figcaption class="slider__caption"></figcaption>
-    </figure>
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
-        </div>
-        <figcaption class="slider__caption"></figcaption>
-    </figure>
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
-        </div>
-        <figcaption class="slider__caption"></figcaption>
-    </figure>
-    <figure class="slider__item">
-        <div class="mag">
-            <img data-toggle="magnify" class="slider__image" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/nameplate/cars/18_mst_segment_landing_32.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" />
-        </div>
-        <figcaption class="slider__caption"></figcaption>
-    </figure>
+    </div>
 </div>
-<div class="slider__btn container">
-    <button><i class="fa fa-thumbs-up likebutton" aria-hidden="true"></i></button>
-</div>
+
+<style>
+    .Selector {
+        width: 350px;
+        height: 600px;
+        font-family: 'Noto Sans', sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 4em;
+        padding-top: 3em;
+        padding-left: 3.2em;
+        padding-right: 3.7em;
+    }
+
+    .app {
+        width: 285px;
+        height: 490px;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding-top: 12px;
+    }
+
+    .content {
+        padding: 10px;
+        padding-top: 0px;
+    }
+
+
+    div.photo {
+        position: absolute;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 265px;
+        height: 315px;
+        border: 1px solid #a6a9aa;
+        border-radius: 8px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 0px 1px 7px 0px #cfcfcf;
+    }
+
+    span.meta {
+        display: block;
+        height: 48px;
+        background-color: #FFF;
+        margin-top: 267px;
+        border-radius: 0px 0px 8px 8px;
+        font-size: 18px;
+        box-sizing: border-box;
+        padding: 12px;
+    }
+
+        span.meta span {
+            float: right;
+            color: #cfcfcf;
+        }
+
+
+    .chat {
+        display: block;
+        width: 34px;
+        height: 30px;
+        background: url(http://web.arjentienkamp.com/codepen/tinder/chat.png);
+        background-size: 30px;
+        background-repeat: no-repeat;
+        padding-left: 4px;
+        background-position: 5px;
+        float: right;
+        margin-top: 0px;
+    }
+
+    .footer {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 318px;
+        width: 100%;
+        padding-left: 40px;
+        padding-top: 6px;
+    }
+
+    .rate {
+        width: 70px;
+        height: 70px;
+        border-radius: 70px;
+        background: #FFF;
+        border: 5px solid #f0f0f0;
+        float: left;
+        box-shadow: 1px 1px 1px 0px #e9e9e9;
+    }
+
+        .rate:nth-child(1) {
+            margin-left: 4px;
+            background: url(../../png/dislike.png);
+            background-size: 25px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+
+        .rate:nth-child(3) {
+            margin-left: -4px;
+            background: url(../../png/like.png);
+            background-size: 25px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+    .info {
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+        background: #FFF;
+        border: 5px solid #f0f0f0;
+        float: left;
+        box-shadow: 1px 1px 1px 0px #e9e9e9;
+        margin-top: 14px;
+        margin-left: -4px;
+        background: url();
+        background-size: 15px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    p {
+        padding: 0;
+        margin: 0;
+        float: left;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function (event) {
+
+        $("div#swipe_like").on("click", function () {
+            swipeLike();
+        });
+
+        $("div#swipe_dislike").on("click", function () {
+            swipeDislike();
+        });
+
+        addNewProfile();
+
+        function swipe() {
+            Draggable.create("#photo", {
+                throwProps: true,
+                onDragEnd: function (endX) {
+                    if (Math.round(this.endX) > 0) {
+                        swipeLike();
+                    }
+                    else {
+                        swipeDislike();
+                    }
+                    console.log(Math.round(this.endX));
+                }
+            });
+        }
+
+        function swipeLike() {
+
+            var $photo = $("div.content").find('#photo');
+
+            var swipe = new TimelineMax({ repeat: 0, yoyo: false, repeatDelay: 0, onComplete: remove, onCompleteParams: [$photo] });
+            swipe.staggerTo($photo, 0.8, { bezier: [{ left: "+=400", top: "+=300", rotation: "60" }], ease: Power1.easeInOut });
+
+            addNewProfile();
+        }
+
+        function swipeDislike() {
+
+            var $photo = $("div.content").find('#photo');
+
+            var swipe = new TimelineMax({ repeat: 0, yoyo: false, repeatDelay: 0, onComplete: remove, onCompleteParams: [$photo] });
+            swipe.staggerTo($photo, 0.8, { bezier: [{ left: "+=-350", top: "+=300", rotation: "-60" }], ease: Power1.easeInOut });
+
+            addNewProfile();
+        }
+
+        function remove(photo) {
+            $(photo).remove();
+        }
+
+        function addNewProfile() {
+            var names = ['Roie', 'Lior', 'Asaf', 'Doron', 'Regev', 'Anton', 'Pinhas'][Math.floor(Math.random() * 7)];
+            var price = ['19', '22', '18', '27', '21', '18', '24'][Math.floor(Math.random() * 7)]
+            var photos = ['1', '2', '3', '4', '5', '6', '7'][Math.floor(Math.random() * 7)]
+            $("div.content").prepend('<div class="photo" id="photo" style="background-image:url(https://i.kinja-img.com/gawker-media/image/upload/s--LCarK2U_--/c_scale,f_auto,fl_progressive,q_80,w_800/188qq8o9i95xbjpg.jpg)">'
+                + '<span class="meta">'
+                + '<p>' + names + ', ' + price + '</p>'
+                + '<span class="moments">0</span>'
+                + '<span class="users"></span>'
+                + '</span>'
+                + '</div>');
+
+            swipe();
+        }
+
+    });
+</script>
