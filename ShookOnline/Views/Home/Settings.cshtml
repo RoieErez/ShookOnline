@@ -2,7 +2,652 @@
 @{
     ViewBag.Title = "Settings";
 }
+<div class="mainPost">
 
-<h2>Settings</h2>
+</div>
+<div class="row Usettings">
+    <!-- Contenedor -->
+    <ul id="accordion" class="accordion col-lg-4 col-md-6 col-sm-12">
+        <li>
+            <div class="col col_4 iamgurdeep-pic">
+                <img class="img-responsive iconImg" alt="iconImg" src="https://kynghistory.ky.gov/People/No-Image-Person%201.jpg"><!--put the user img-->
+                <div class="edit-pic">
+                    <a href="#" target="_blank" class="fa fa-facebook"></a>
+                    <a href="#" target="_blank" class="fa fa-google"></a>
+                </div>
+                <div class="username">
+                    <h2>@Session["UserName"].ToString()</h2> 
+                    <small><i class="fa fa-map-marker"></i> "Location"</small>
+                    
+                    <button class="btn-o"><i class="fa fa-user-times" aria-hidden="true"></i>  @Html.ActionLink("Log Off", "LogOff", "Home")</button>
+                    <button class="btn-o"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit Details</button>
+                    <ul class="nav navbar-nav"></ul>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+                <li><a href="#">Date of Birth:</a></li>
+                <li><a href="#">Address:</a></li>
+                <li><a href="#">Email:</a></li>
+                <li><a href="#">Phone:</a></li>
+            </ul>
+        </li>
+        <li class="default open">
+            <div class="link"><i class="fa fa-code"></i>Filter Options<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+                <li>
+                    <a href="#">
+                        <span class="tags">Cars</span> <span class="tags">Baby Stuff</span>
+                        <span class="tags">Art</span> <span class="tags">Bike</span> <span class="tags">Video Games</span> <span class="tags">Electronics</span>
+                </li></a>
+            </ul>
+        </li>
+        <li>
+            <div class="link"><i class="fa fa-address-card-o" aria-hidden="true"></i>Posts: <small>19</small><i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+                <li class="photosgurdeep">
+                    <a href="#">
+                        <img class="img-responsive iconImg" src="https://cdn57.androidauthority.net/wp-content/uploads/2015/11/buy-sell-phone-e1496669730853-840x590.jpg">
+                    </a>
+                    <a class="view-all" href="#" target="_blank">
+                        15+
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <div class="link"><i class="fa fa-users"></i>Friends <small>1,053</small><i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+                <li class="photosgurdeep">
+                    <a href="#">
+                        <img class="img-responsive iconImg" src="#">
+                        <a class="view-all" href="#" target="_blank">
+                            50+
+                        </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
 
-dfsvdfvdsfv
+<!--all the user posts-->
+<div class="container">
+    <div id="main_area">
+        <!-- Slider -->
+        <div class="row">
+            <div class="div col-lg-4 col-sm-6 smallItems">
+                <!-- Bottom switcher of slider -->
+                <ul class="hide-bullets">
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-0">
+                            <img src="http://placehold.it/150x150&text=zero">
+                        </a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-1"><img src="http://placehold.it/150x150&text=1"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-2"><img src="http://placehold.it/150x150&text=2"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-3"><img src="http://placehold.it/150x150&text=3"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-4"><img src="http://placehold.it/150x150&text=4"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-5"><img src="http://placehold.it/150x150&text=5"></a>
+                    </li>
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-6"><img src="http://placehold.it/150x150&text=6"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-7"><img src="http://placehold.it/150x150&text=7"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-8"><img src="http://placehold.it/150x150&text=8"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-9"><img src="http://placehold.it/150x150&text=9"></a>
+                    </li>
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-10"><img src="http://placehold.it/150x150&text=10"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-11"><img src="http://placehold.it/150x150&text=11"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-12"><img src="http://placehold.it/150x150&text=12"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-13"><img src="http://placehold.it/150x150&text=13"></a>
+                    </li>
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-14"><img src="http://placehold.it/150x150&text=14"></a>
+                    </li>
+
+                    <li class="col-sm-3">
+                        <a class="thumbnail" id="carousel-selector-15"><img src="http://placehold.it/150x150&text=15"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 LargeItem">
+                <div class="col-xs-12" id="slider">
+                    <!-- Top part of the slider -->
+                    <div class="row">
+                        <div class="col-sm-12" id="carousel-bounding-box">
+                            <div class="carousel slide" id="myCarousel">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    <div class="active item" data-slide-number="0">
+                                        <img src="http://placehold.it/470x480&text=zero">
+                                    </div>
+
+                                    <div class="item" data-slide-number="1">
+                                        <img src="http://placehold.it/470x480&text=1">
+                                    </div>
+
+                                    <div class="item" data-slide-number="2">
+                                        <img src="http://placehold.it/470x480&text=2">
+                                    </div>
+
+                                    <div class="item" data-slide-number="3">
+                                        <img src="http://placehold.it/470x480&text=3">
+                                    </div>
+
+                                    <div class="item" data-slide-number="4">
+                                        <img src="http://placehold.it/470x480&text=4">
+                                    </div>
+
+                                    <div class="item" data-slide-number="5">
+                                        <img src="http://placehold.it/470x480&text=5">
+                                    </div>
+
+                                    <div class="item" data-slide-number="6">
+                                        <img src="http://placehold.it/470x480&text=6">
+                                    </div>
+
+                                    <div class="item" data-slide-number="7">
+                                        <img src="http://placehold.it/470x480&text=7">
+                                    </div>
+
+                                    <div class="item" data-slide-number="8">
+                                        <img src="http://placehold.it/470x480&text=8">
+                                    </div>
+
+                                    <div class="item" data-slide-number="9">
+                                        <img src="http://placehold.it/470x480&text=9">
+                                    </div>
+
+                                    <div class="item" data-slide-number="10">
+                                        <img src="http://placehold.it/470x480&text=10">
+                                    </div>
+
+                                    <div class="item" data-slide-number="11">
+                                        <img src="http://placehold.it/470x480&text=11">
+                                    </div>
+                                    <div class="item" data-slide-number="12">
+                                        <img src="http://placehold.it/470x480&text=12">
+                                    </div>
+                                    <div class="item" data-slide-number="13">
+                                        <img src="http://placehold.it/470x480&text=13">
+                                    </div>
+                                    <div class="item" data-slide-number="14">
+                                        <img src="http://placehold.it/470x480&text=14">
+                                    </div>
+                                    <div class="item" data-slide-number="15">
+                                        <img src="http://placehold.it/470x480&text=15">
+                                    </div>
+                                </div>
+                                <!-- Carousel nav -->
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/Slider-->
+        </div>
+
+    </div>
+</div>
+<style>
+    /*user posts*/
+    .LargeItem {
+        width: 350px;
+        margin-left: 200px;
+        margin-top: 60px;
+    }
+
+    .smallItems {
+        margin-left: 230px;
+        margin-top:50px;
+    }
+
+    .hide-bullets {
+        list-style: none;
+        margin-left: -40px;
+        margin-top: 20px;
+    }
+
+    .thumbnail {
+        padding: 0;
+    }
+
+    .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+        width: 100%;
+    }
+    /*end user posts*/
+       * {
+           margin: 0;
+           padding: 0;
+           -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+           box-sizing: border-box;
+       }
+
+       .iamgurdeep-pic {
+           position: relative;
+       }
+
+       .username {
+           bottom: 0;
+           color: #ffffff;
+           padding: 30px 15px 4px;
+           position: absolute;
+           width: 100%;
+           text-shadow: 1px 1px 2px #000000;
+           background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* FF3.6-15 */
+           background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* Chrome10-25,Safari5.1-6 */
+           background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #2d2c41 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a64d4d4d',GradientType=0 ); /* IE6-9 */
+       }
+
+       .iconImg {
+           border-radius: 4px 4px 0 0;
+       }
+
+       .username > h2 {
+           font-family: oswald;
+           font-size: 17px;
+           font-weight: lighter;
+           margin: 31px 0 4px;
+           position: relative;
+           text-shadow: 1px 1px 2px #000000;
+           text-transform: uppercase;
+       }
+
+           .username > h2 small {
+               color: #ffffff;
+               font-family: open sans;
+               font-size: 13px;
+               font-weight: 400;
+               position: relative;
+           }
+
+       .username .fa {
+           color: #ffffff;
+           font-size: 14px;
+           margin: 0 0 0 4px;
+           position: static;
+       }
+
+       .edit-pic a {
+           background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+           border: 1px solid #ffffff;
+           border-radius: 50%;
+           color: #ffffff;
+           font-size: 21px;
+           height: 39px;
+           line-height: 38px;
+           margin: 8px;
+           text-align: center;
+           width: 39px;
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+           text-decoration: none !important;
+           display: list-item;
+           background-color: rgba(255, 255, 255, 0.1)
+       }
+
+           .edit-pic a:hover {
+               font-size: 17px;
+               opacity: 0.9;
+           }
+
+           .edit-pic a:focus {
+               background: #b63b4d;
+               color: #fff;
+               border: 1px solid #b63b4d;
+           }
+
+       a:focus {
+           outline: none;
+           outline-offset: 0px;
+       }
+
+       .edit-pic {
+           position: absolute;
+           right: 0;
+           top: 0;
+           opacity: 0;
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+       }
+
+       .tags {
+           background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+           border: 1px solid rgba(255, 255, 255, 0.1);
+           border-radius: 2px;
+           display: inline-block;
+           font-size: 13px;
+           margin: 4px 0 0;
+           padding: 2px 5px;
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+       }
+
+           .tags:hover {
+               background: rgba(255, 255, 255, 0.3) none repeat scroll 0 0;
+               border: 1px solid rgba(255, 255, 255, 0.5);
+               border-radius: 2px;
+               display: inline-block;
+               font-size: 13px;
+               margin: 4px 0 0;
+               padding: 2px 5px;
+           }
+
+       #accordion:hover .edit-pic {
+           opacity: unset;
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+       }
+
+
+       .btn-o {
+           background-color: rgba(255, 255, 255, 0.1);
+           border: 1px solid rgba(255, 255, 255, 0.5);
+           border-radius: 2px;
+           color: #ffffff !important;
+           display: inline-block;
+           font-family: open sans;
+           font-size: 10px !important;
+           font-weight: normal !important;
+           margin: 0 0 10px;
+           padding: 5px 11px;
+           text-decoration: none !important;
+           text-transform: uppercase;
+           background-color: rgba(255, 255, 255, 0.1);
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+       }
+
+           .btn-o:hover {
+               background-color: rgba(255, 255, 255, 0.4);
+               color: #fff !important;
+           }
+
+           .btn-o:focus {
+               background: #b63b4d;
+               color: #fff;
+               border: 1px solid #b63b4d;
+           }
+
+       .submenu .iconImg {
+           background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0 !important;
+           border-radius: 50%;
+           height: 60px;
+           padding: 2px;
+           width: 60px;
+       }
+
+       .photosgurdeep > a {
+           background: #ffffff none repeat scroll 0 0;
+           border-radius: 50%;
+           display: inline-block !important;
+           padding: 0 !important;
+       }
+
+       .view-all {
+           background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0 !important;
+           border: 1px solid;
+           float: right;
+           font-family: oswald;
+           font-size: 26px;
+           height: 60px;
+           line-height: 61px;
+           text-align: center;
+           width: 60px;
+       }
+
+       .photosgurdeep {
+           padding: 10px 9px 4px 35px;
+       }
+
+       ul {
+           list-style-type: none;
+       }
+
+       a {
+           color: white;
+           text-decoration: none;
+       }
+
+       /** =======================
+    * Contenedor Principal
+    ===========================*/
+       h1 {
+           color: #FFF;
+           font-size: 24px;
+           font-weight: 400;
+           text-align: center;
+           margin-top: 40px;
+       }
+
+           h1 a {
+               color: #c12c42;
+               font-size: 16px;
+           }
+
+       .accordion {
+           position: fixed;
+           width: 100%;
+           max-width: 215px;
+           margin: 10px 20px;
+           -webkit-border-radius: 4px;
+           -moz-border-radius: 4px;
+           border-radius: 4px;
+       }
+
+           .accordion .link {
+               cursor: pointer;
+               display: block;
+               padding: 15px 15px 15px 42px;
+               color: #4D4D4D;
+               font-size: 14px;
+               font-weight: 700;
+               border-bottom: 1px solid #CCC;
+               position: relative;
+               -webkit-transition: all 0.4s ease;
+               -o-transition: all 0.4s ease;
+               transition: all 0.4s ease;
+           }
+
+           .accordion li:last-child .link {
+               border-bottom: 0;
+           }
+
+           .accordion li i {
+               position: absolute;
+               top: 16px;
+               left: 12px;
+               font-size: 18px;
+               color: #595959;
+               -webkit-transition: all 0.4s ease;
+               -o-transition: all 0.4s ease;
+               transition: all 0.4s ease;
+           }
+
+               .accordion li i.fa-chevron-down {
+                   right: 12px;
+                   left: auto;
+                   font-size: 16px;
+               }
+
+           .accordion li.open .link {
+               color: #b63b4d;
+           }
+
+           .accordion li.open i {
+               color: #b63b4d;
+           }
+
+               .accordion li.open i.fa-chevron-down {
+                   -webkit-transform: rotate(180deg);
+                   -ms-transform: rotate(180deg);
+                   -o-transform: rotate(180deg);
+                   transform: rotate(180deg);
+               }
+
+           .accordion li.default .submenu {
+               display: block;
+           }
+       /**
+    * Submenu
+    -----------------------------*/
+       .submenu {
+           display: none;
+           background: #444359;
+           font-size: 14px;
+       }
+
+           .submenu li {
+               border-bottom: 1px solid #4b4a5e;
+           }
+
+           .submenu a {
+               display: block;
+               text-decoration: none;
+               color: #d9d9d9;
+               padding: 12px;
+               padding-left: 10px;
+               -webkit-transition: all 0.25s ease;
+               -o-transition: all 0.25s ease;
+               transition: all 0.25s ease;
+           }
+
+               .submenu a:hover {
+                   background: #b63b4d;
+                   color: #FFF;
+               }
+
+       .dropdown-toggle {
+           background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+           font-size: 15px !important;
+       }
+
+       .dropdown {
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+       }
+
+       .dropdown-menu > li > a {
+           color: #428bca;
+           -webkit-transition: all 0.4s ease;
+           -o-transition: all 0.4s ease;
+           transition: all 0.4s ease;
+       }
+
+       .dropdown ul.dropdown-menu {
+           border-radius: 4px;
+           box-shadow: none;
+       }
+
+           .dropdown ul.dropdown-menu:before {
+               content: "";
+               border-bottom: 10px solid #fff;
+               border-right: 10px solid transparent;
+               border-left: 10px solid transparent;
+               position: absolute;
+               top: -8px;
+               right: 8px;
+               z-index: 10;
+           }
+</style>
+
+<script>
+    jQuery(document).ready(function ($) {
+
+        $('#myCarousel').carousel({
+            interval: 5000
+        });
+
+        //Handles the carousel thumbnails
+        $('[id^=carousel-selector-]').click(function () {
+            var id_selector = $(this).attr("id");
+            try {
+                var id = /-(\d+)$/.exec(id_selector)[1];
+                console.log(id_selector, id);
+                jQuery('#myCarousel').carousel(parseInt(id));
+            } catch (e) {
+                console.log('Regex failed!', e);
+            }
+        });
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid.bs.carousel', function (e) {
+            var id = $('.item.active').data('slide-number');
+            $('#carousel-text').html($('#slide-content-' + id).html());
+        });
+    });
+
+    $(function () {
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+
+            // Variables privadas
+            var links = this.el.find('.link');
+            // Evento
+            links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+        }
+
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el;
+            $this = $(this),
+                $next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
+
+        var accordion = new Accordion($('#accordion'), false);
+    });
+</script>

@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url(http://bedrooms1.com/wp-content/uploads/2014/05/simple-blue-opera-background-light-49001.jpg);
+    background: url(http://bedrooms1.com/wp-content/uploads/2014/05/simple-blue-opera-background-light-49001.jpg) no-repeat center center fixed;
     background-size: cover;
     background-position: center;
 }
@@ -29,7 +29,6 @@ textarea {
 .navDesign {
     background-color: rgba(246, 236, 235, 0.50);
 }
-
 
 /* side menu css */
 .img {
