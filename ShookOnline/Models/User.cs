@@ -65,12 +65,8 @@ namespace ShookOnline.Models
             {
                 manager.openConnection();
                 Collection<User> collection = new Collection<User>();
-                //social login
-                if (flag)
-                    collection = manager.DataReader("select username,email from users where providerkey='" + providerKey + "'");
-                //local login
-                else
-                    collection = manager.DataReader("select username,email from users where email='" + email + "'and password='" + password +"'");
+                collection = flag ? manager.DataReader("select username,email from users where providerkey='" + providerKey + "'") : manager.DataReader("select username,email from users where email='" + email + "'and password='" + password + "'");
+                
                 if (collection != null && collection.Count == 1)
                     return true;
                 if (flag)
