@@ -65,13 +65,9 @@ namespace ShookOnline.Models
             {
                 manager.openConnection();
                 Collection<User> collection = new Collection<User>();
-                //social login
-                if (flag)
-                    collection = manager.DataReader("select id from users where providerkey='" + providerKey + "'");
-                //local login
-                else
-                    collection = manager.DataReader("select id from users where email='" + email + "'and password='" + password +"'");
-                if (collection.Count > 0)
+                collection = flag ? manager.DataReader("select username,email from users where providerkey='" + providerKey + "'") : manager.DataReader("select username,email from users where email='" + email + "'and password='" + password + "'");
+                
+                if (collection != null && collection.Count == 1)
                     return true;
                 if (flag)
                 {
@@ -96,8 +92,8 @@ namespace ShookOnline.Models
         public override User Map(IDataRecord record)
         {
             User usr = new User();
-            usr.userName = record.GetString(2);
-            usr.email = record.GetString(4);
+            usr.userName = record.GetString(0);
+            usr.email = record.GetString(1);
             return usr;
         }
     }
