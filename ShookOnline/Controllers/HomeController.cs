@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace ShookOnline.Controllers
 {
+    
     public class HomeController : Controller
     {
         public ActionResult Index(User u)
@@ -14,10 +15,7 @@ namespace ShookOnline.Controllers
         {
             return View();
         }
-        public ActionResult Settings()
-        {   
-            return View();
-        }
+       
         public ActionResult LogOff()
         {
             Session.Clear();

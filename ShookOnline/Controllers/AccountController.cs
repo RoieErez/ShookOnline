@@ -1,11 +1,11 @@
 ﻿using Facebook;
 using ShookOnline.Models;
 using System;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace MVCApplication1.Controllers
 {
+    
     public class AccountController : Controller
     {
         private Uri RedirectUri
@@ -84,7 +84,7 @@ namespace MVCApplication1.Controllers
             /*need to check in DB existing user*/
             user.userRegister();
             Session["UserName"] = user.userName;
-            return RedirectToAction("Index","Home",user);
+            return RedirectToAction("Index", "Home", user);
         }
 
 
