@@ -11,6 +11,23 @@
     @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/modernizr")
     @Scripts.RenderFormat(@"<script src="" {0}"" async></script>", "~/bundles/SiteJS")
     
+
+    <script language="javascript" type="text/javascript">
+        /*alert message when user session time out is closed*/
+        $(function () {
+            var sessionTimeoutWarning = @Session.Timeout -2;
+            var sessionTimeout = @Session.Timeout ;
+            var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+            setTimeout('SessionWarning()', sTimeout);
+
+            function SessionWarning() {
+                var message = "Your session will expire in another " +
+                    (parseInt(sessionTimeout) - parseInt(sessionTimeoutWarning)) +
+                    " mins! Please Save the data before the session expires";
+                alert(message);
+            }
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top navDesign">
