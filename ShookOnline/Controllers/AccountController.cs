@@ -84,6 +84,7 @@ namespace MVCApplication1.Controllers
             /*need to check in DB existing user*/
             user.userRegister();
             Session["UserName"] = user.userName;
+            Session["Location"] = user.location;
             return RedirectToAction("Index", "Home", user);
         }
 
