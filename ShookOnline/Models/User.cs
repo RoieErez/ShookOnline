@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShookOnline.Models
 {
-    public class User 
+    public class IUser 
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -14,10 +14,10 @@ namespace ShookOnline.Models
 
 
         /*default constructor*/
-        public User() { }
+        public IUser() { }
 
         /*copy register user*/
-        public User(UserRegister u)
+        public IUser(UserRegister u)
         {
             UserName = u.UserName;
             Password = u.Password;
@@ -26,7 +26,7 @@ namespace ShookOnline.Models
         }
 
         /*copy login user*/
-        public User(UserLogin u)
+        public IUser(UserLogin u)
         {
             UserName = u.UserName;
             Password = u.Password;

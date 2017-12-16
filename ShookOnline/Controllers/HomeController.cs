@@ -6,7 +6,7 @@ namespace ShookOnline.Controllers
     
     public class HomeController : Controller
     {
-        public ActionResult Index(User u)
+        public ActionResult Index(IUser u)
         {
             return View();
         }
