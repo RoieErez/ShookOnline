@@ -7,14 +7,15 @@ using System.Web;
 
 namespace ShookOnline.DAL
 {
-    public class UserDal:DbContext
+    public class EUserDal:DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<EUser> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+           
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<EUser>().ToTable("ExternalUser");
         }
     }
 }

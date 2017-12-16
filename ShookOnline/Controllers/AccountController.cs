@@ -1,6 +1,10 @@
 ﻿using Facebook;
+using ShookOnline.DAL;
 using ShookOnline.Models;
 using System;
+using System.Data.Entity;
+using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MVCApplication1.Controllers
@@ -55,41 +59,55 @@ namespace MVCApplication1.Controllers
 
             // Get the user's information
 
-            User user = new User(fb.Get("me?fields=first_name,last_name,id,email"));
-            Session["UserName"] = user.userName;
-            Session["Location"] = user.location;
-            return user.checkLogin(true) ? RedirectToAction("Index", "Home") : RedirectToAction("TryRegister", "Account");
-
-        }
-
-
-
-        [HttpPost]
-        public ActionResult CheckLogin(UserLogin u)
-        {
-            User user = new User(u);
-            if(user.checkLogin(false))
+            EUser user = new EUser(fb.Get("me?fields=first_name,last_name,id,email"));
+            Session["UserName"] = user.UserName;
+            Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+            if (ModelState.IsValid)
             {
-                Session["UserName"] = user.userName;
-                return RedirectToAction("Index", "Home");
+               EUserDal ud = new EUserDal();
+               if(ud.Users.FirstOrDefault(a => a.ProviderKey == user.ProviderKey) != null)
+                    return RedirectToAction("Index", "Home");
+                ud.Users.Add(user);
+                ud.SaveChangesAsync();
             }
-            return RedirectToAction("TryRegister", "Account");
+
+            return RedirectToAction("Index", "Home") ;
+
         }
 
+        //[HttpPost]
+        //public ActionResult CheckLogin(UserLogin u)
+        //{
+        //    User user = new User(u);
+        //    if(user.checkLogin(false))
+        //    {
+        //        Session["UserName"] = user.UserName;
+        //        Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    return RedirectToAction("TryRegister", "Account");
+        //}
 
-        [HttpPost]
-        public ActionResult Register(UserRegister ur)
-        {
-            User user = new User(ur);
-            /*need to check in DB existing user*/
-            user.userRegister();
-            Session["UserName"] = user.userName;
-            Session["Location"] = user.location;
-            return RedirectToAction("Index", "Home", user);
-        }
+
+        //[HttpPost]
+        //public ActionResult Register(UserRegister ur)
+        //{
+        //    EUser user = new EUser(ur);
+        //    /*need to check in DB existing user*/
+        //    //user.userRegister();
+        //    if (ModelState.IsValid)
+        //    {
+        //        UserDal ud = new UserDal();
+        //        ud.Users.Add(user);
+        //        int x=ud.SaveChanges();
+        //    }
+        //    Session["UserName"] = user.userName;
+        //    Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+        //    return RedirectToAction("Index", "Home", user);
+        //}
 
 
-        
+
         public ActionResult TryRegister(UserRegister ur)
         {
 
