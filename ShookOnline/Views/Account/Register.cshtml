@@ -6,7 +6,6 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
 <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
@@ -100,6 +99,17 @@
 
     }
 </div>
+    @if (TempData["Register"] !=null || Session["aa"].ToString() == "aa")
+    {
+        <script>
+            $('#login-form-link').removeClass('active');
+            $('#register-form-link').addClass('active');
+            $('#login-form').css('display', 'none');
+            $('#register-form').css('display', 'block');
+        </script>
+            
+
+    }
 
 <script>
     var password = document.getElementById("password1")

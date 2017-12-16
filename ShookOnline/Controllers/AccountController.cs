@@ -102,6 +102,7 @@ namespace MVCApplication1.Controllers
                 if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
                 {
                     TempData["RegisterMessage"] = "Mail is allready exist";
+                    TempData["Register"] = "value";
                     return View("Register");
                 }
                 
