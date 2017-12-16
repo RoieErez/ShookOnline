@@ -89,22 +89,22 @@ namespace MVCApplication1.Controllers
         //}
 
 
-        //[HttpPost]
-        //public ActionResult Register(UserRegister ur)
-        //{
-        //    EUser user = new EUser(ur);
-        //    /*need to check in DB existing user*/
-        //    //user.userRegister();
-        //    if (ModelState.IsValid)
-        //    {
-        //        UserDal ud = new UserDal();
-        //        ud.Users.Add(user);
-        //        int x=ud.SaveChanges();
-        //    }
-        //    Session["UserName"] = user.userName;
-        //    Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
-        //    return RedirectToAction("Index", "Home", user);
-        //}
+        [HttpPost]
+        public ActionResult Register(UserRegister ur)
+        {
+            IUser user = new IUser(ur);
+            /*need to check in DB existing user*/
+            //user.userRegister();
+            if (ModelState.IsValid)
+            {
+                IUserDal ud = new IUserDal();
+                ud.Users.Add(user);
+                int x = ud.SaveChanges();
+            }
+            Session["UserName"] = user.UserName;
+            Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+            return RedirectToAction("Index", "Home", user);
+        }
 
 
 

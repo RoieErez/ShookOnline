@@ -9,13 +9,13 @@ namespace ShookOnline.DAL
 {
     public class IUserDal : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<IUser> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().ToTable("InternalUser");
+            modelBuilder.Entity<IUser>().ToTable("InternalUser");
         }
     }
 }
