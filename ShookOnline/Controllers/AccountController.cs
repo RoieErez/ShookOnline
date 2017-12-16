@@ -75,35 +75,43 @@ namespace MVCApplication1.Controllers
 
         }
 
-        //[HttpPost]
-        //public ActionResult CheckLogin(UserLogin u)
-        //{
-        //    User user = new User(u);
-        //    if(user.checkLogin(false))
-        //    {
-        //        Session["UserName"] = user.UserName;
-        //        Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    return RedirectToAction("TryRegister", "Account");
-        //}
+        [HttpPost]
+        public ActionResult CheckLogin(UserLogin u)
+        {
+            IUser user = new IUser(u);
+            IUserDal ud = new IUserDal();
+            if (ud.Users.FirstOrDefault(a => a.UserName == user.UserName && a.Password == user.Password ) != null)
+            {
+                Session["UserName"] = user.UserName;
+                Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+                return RedirectToAction("Index", "Home");
+            }
+            TempData["LoginMessage"] = "Invalid User Name or Password";
+            return RedirectToAction("TryRegister", "Account");
+        }
 
 
         [HttpPost]
         public ActionResult Register(UserRegister ur)
         {
-            IUser user = new IUser(ur);
-            /*need to check in DB existing user*/
-            //user.userRegister();
+            IUser user = new IUser(ur);            
             if (ModelState.IsValid)
             {
                 IUserDal ud = new IUserDal();
+                /*check if user allready exist */
+                if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
+                {
+                    TempData["RegisterMessage"] = "Mail is allready exist";
+                    return View("Register");
+                }
+                
                 ud.Users.Add(user);
-                int x = ud.SaveChanges();
+                ud.SaveChangesAsync();
+                Session["UserName"] = user.UserName;
+                Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+                return RedirectToAction("Index", "Home", user);
             }
-            Session["UserName"] = user.UserName;
-            Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
-            return RedirectToAction("Index", "Home", user);
+            return View("Register");
         }
 
 
