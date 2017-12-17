@@ -2,9 +2,9 @@
 @{
     ViewBag.Title = "Settings";
 }
-<div class="mainPost">
 
-</div>
+<link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet"> 
+
 <div class="row Usettings">
     <!-- Contenedor -->
     <ul id="accordion" class="accordion col-lg-4 col-md-6 col-sm-12">
@@ -73,7 +73,7 @@
 </div>
 
 <!--all the user posts-->
-<div class="container">
+@*<div class="container">
     <div id="main_area">
         <!-- Slider -->
         <div class="row">
@@ -224,13 +224,70 @@
                     </div>
                 </div>
             </div>
-            <!--/Slider-->
         </div>
-
+    </div>
+</div>*@
+<!--User Post-->
+<div class="container">
+    <div class="post-po col-md-5">
+        <div class="form-area">
+            <form role="form">
+                <br style="clear:both">
+                <h3 style="margin-bottom: 25px; text-align: center; font-family:'Pangolin', cursive;">Post Somthing..</h3>
+                <div class="form-group">
+                    <select style="font-family:'FontAwesome',Ariel;" class="form-control" id="itemType" name="itemType">
+                        <option role="separator">Choose item type</option>
+                        <option value="cars">&#xf1b9; Cars</option>
+                        <option value="freeStuff">&#xf004; Free Stuff</option>
+                        <option value="Electronics">&#xf26c; Electronics</option>
+                        <option value="Vehicels">&#xf21c; Other Vehicels</option>
+                        <option value="Sports">&#xf1e3; Sports</option>
+                        <option value="HomeNgarden">&#xf2cd; Home And Garden</option>
+                        <option value="Misc">&#xf02d; Books and Music</option>
+                        <option value="FashionAccessories">&#xf06e; Fashion and Accessories</option>
+                        <option value="Baby">&#xf1ae;  baby and Child</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" type="textarea" id="discription" placeholder="Discription" maxlength="140" rows="7"></textarea>
+                    <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
+                </div>
+                <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+            </form>
+        </div>
     </div>
 </div>
+
 <style>
-    /*user posts*/
+    /*post form*/
+    .post-po{
+
+        margin-left:160px;
+        position: fixed;
+        width:40%;
+    } 
+    .red {
+        color: red;
+    }
+
+    .form-area {
+        background-color: #FAFAFA;
+        width: 75%;
+        padding: 10px 40px 60px;
+        margin:  20px 0px 60px;
+        border: 1px solid GREY;
+
+    }
+
     .LargeItem {
         width: 350px;
         margin-left: 200px;
@@ -255,7 +312,7 @@
     .carousel-inner > .item > img, .carousel-inner > .item > a > img {
         width: 100%;
     }
-    /*end user posts*/
+
        * {
            margin: 0;
            padding: 0;
@@ -600,6 +657,24 @@
 </style>
 
 <script>
+    $(document).ready(function () {
+        $('#characterLeft').text('140 characters left');
+        $('#message').keydown(function () {
+            var max = 140;
+            var len = $(this).val().length;
+            if (len >= max) {
+                $('#characterLeft').text('You have reached the limit');
+                $('#characterLeft').addClass('red');
+                $('#btnSubmit').addClass('disabled');
+            }
+            else {
+                var ch = max - len;
+                $('#characterLeft').text(ch + ' characters left');
+                $('#btnSubmit').removeClass('disabled');
+                $('#characterLeft').removeClass('red');
+            }
+        });
+    });
     jQuery(document).ready(function ($) {
 
         $('#myCarousel').carousel({
