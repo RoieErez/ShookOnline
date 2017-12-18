@@ -261,6 +261,15 @@
                     <textarea class="form-control" type="textarea" id="discription" placeholder="Discription" maxlength="140" rows="7"></textarea>
                     <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
                 </div>
+                <div class="form-group">
+                    @using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+                    {
+                        <label for="file">Upload image:</label>
+                        <input type="file" calss="btn btn-primary"name="file" id="file" style="width: 100%;" />
+                        <input type="submit" value="Upload" class="submit btn btn-primary" />
+                    }
+                </div>
                 <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
             </form>
         </div>
@@ -270,9 +279,7 @@
 <style>
     /*post form*/
     .post-po{
-
         margin-left:160px;
-        position: fixed;
         width:40%;
     } 
     .red {
@@ -285,6 +292,7 @@
         padding: 10px 40px 60px;
         margin:  20px 0px 60px;
         border: 1px solid GREY;
+ 
 
     }
 
