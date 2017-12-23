@@ -102,7 +102,7 @@ namespace MVCApplication1.Controllers
                 if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
                 {
                     TempData["RegisterMessage"] = "Mail is allready exist";
-                    TempData["Register"] = "value";
+                    TempData["Register"] = "Register";
                     return View("Register");
                 }
                 
@@ -119,7 +119,8 @@ namespace MVCApplication1.Controllers
 
         public ActionResult TryRegister(UserRegister ur)
         {
-
+            if (ur.UserName != null)
+                TempData["Register"] = "Register";
             return View("Register");
         }
 
@@ -127,6 +128,12 @@ namespace MVCApplication1.Controllers
         {
             return View();
         }
-       
+
+        public ActionResult Landing()
+        {
+            TempData["landing"] = "landing";
+            return View("Register");
+        }
+
     }
 }
