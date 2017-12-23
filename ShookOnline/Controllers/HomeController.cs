@@ -14,7 +14,7 @@ namespace ShookOnline.Controllers
         {
             Session.Clear();
 
-            return View("Landing");
+            return RedirectToAction("Landing", "Account");
         }
     }
 }
