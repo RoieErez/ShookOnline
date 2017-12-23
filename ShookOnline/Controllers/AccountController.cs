@@ -67,8 +67,11 @@ namespace MVCApplication1.Controllers
             if (ModelState.IsValid)
             {
                EUserDal ud = new EUserDal();
-               if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
-                   return RedirectToAction("Index", "Home");
+               List<EUser> userToCheck = (from x in ud.Users
+                                           where x.Email == user.Email
+                                           select x).ToList<EUser>();
+               if(userToCheck.Count == 1)
+                    return RedirectToAction("Index", "Home");
                //provider key hashing
                PWEncryption enc = new PWEncryption();
                user.ProviderKey = enc.createHash(user.ProviderKey);
@@ -113,7 +116,10 @@ namespace MVCApplication1.Controllers
             {
                 IUserDal ud = new IUserDal();
                 //check if user allready exist
-                if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
+                List<IUser> userToCheck = (from x in ud.Users
+                                           where x.Email == user.Email
+                                           select x).ToList<IUser>();
+                if (userToCheck.Count == 1)
                 {
                     TempData["RegisterMessage"] = "Mail is allready exist";
                     TempData["Register"] = "Register";
