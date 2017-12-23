@@ -159,6 +159,7 @@
     <Compile Include="Controllers\ManageAccountController.cs" />
     <Compile Include="DAL\EUserDal.cs" />
     <Compile Include="DAL\IUserDal.cs" />
+    <Compile Include="Encryption\PWEncryption.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,7 +1,9 @@
 ﻿using Facebook;
 using ShookOnline.DAL;
+using ShookOnline.Encryption;
 using ShookOnline.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
@@ -65,10 +67,13 @@ namespace MVCApplication1.Controllers
             if (ModelState.IsValid)
             {
                EUserDal ud = new EUserDal();
-               if(ud.Users.FirstOrDefault(a => a.ProviderKey == user.ProviderKey) != null)
-                    return RedirectToAction("Index", "Home");
-                ud.Users.Add(user);
-                ud.SaveChangesAsync();
+               if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
+                   return RedirectToAction("Index", "Home");
+               //provider key hashing
+               PWEncryption enc = new PWEncryption();
+               user.ProviderKey = enc.createHash(user.ProviderKey);
+               ud.Users.Add(user);
+               ud.SaveChangesAsync();
             }
 
             return RedirectToAction("Index", "Home") ;
@@ -80,13 +85,22 @@ namespace MVCApplication1.Controllers
         {
             IUser user = new IUser(u);
             IUserDal ud = new IUserDal();
-            if (ud.Users.FirstOrDefault(a => a.UserName == user.UserName && a.Password == user.Password ) != null)
+            PWEncryption enc = new PWEncryption();
+            List<IUser> userToCheck = (from x in ud.Users
+                                      where x.UserName == user.UserName
+                                      select x).ToList<IUser>();
+
+
+            foreach (IUser iu in userToCheck)
             {
-                Session["UserName"] = user.UserName;
-                Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
-                return RedirectToAction("Index", "Home");
+                if (enc.validatePassword(user.Password, iu.Password))
+                {
+                    Session["UserName"] = user.UserName;
+                    Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            TempData["LoginMessage"] = "Invalid User Name or Password";
+            TempData["LoginMessage"] = "Invalid User Name/Password";
             return RedirectToAction("TryRegister", "Account");
         }
 
@@ -98,14 +112,16 @@ namespace MVCApplication1.Controllers
             if (ModelState.IsValid)
             {
                 IUserDal ud = new IUserDal();
-                /*check if user allready exist */
+                //check if user allready exist
                 if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
                 {
                     TempData["RegisterMessage"] = "Mail is allready exist";
                     TempData["Register"] = "Register";
                     return View("Register");
                 }
-                
+                //password hashing
+                PWEncryption enc = new PWEncryption();
+                user.Password = enc.createHash(user.Password);
                 ud.Users.Add(user);
                 ud.SaveChangesAsync();
                 Session["UserName"] = user.UserName;
