@@ -159,6 +159,7 @@
     <Compile Include="Controllers\ManageAccountController.cs" />
     <Compile Include="DAL\EUserDal.cs" />
     <Compile Include="DAL\IUserDal.cs" />
+    <Compile Include="Encryption\PWEncryption.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,7 +207,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Landing.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\ManageAccount\Settings.cshtml" />
   </ItemGroup>

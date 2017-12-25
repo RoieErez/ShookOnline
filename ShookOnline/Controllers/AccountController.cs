@@ -1,12 +1,12 @@
 ﻿using Facebook;
 using ShookOnline.DAL;
+using ShookOnline.Encryption;
 using ShookOnline.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MVCApplication1.Controllers
@@ -67,10 +67,16 @@ namespace MVCApplication1.Controllers
             if (ModelState.IsValid)
             {
                EUserDal ud = new EUserDal();
-               if(ud.Users.FirstOrDefault(a => a.ProviderKey == user.ProviderKey) != null)
+               List<EUser> userToCheck = (from x in ud.Users
+                                           where x.Email == user.Email
+                                           select x).ToList<EUser>();
+               if(userToCheck.Count == 1)
                     return RedirectToAction("Index", "Home");
-                ud.Users.Add(user);
-                ud.SaveChangesAsync();
+               //provider key hashing
+               PWEncryption enc = new PWEncryption();
+               user.ProviderKey = enc.createHash(user.ProviderKey);
+               ud.Users.Add(user);
+               ud.SaveChangesAsync();
             }
 
             return RedirectToAction("Index", "Home") ;
@@ -82,13 +88,22 @@ namespace MVCApplication1.Controllers
         {
             IUser user = new IUser(u);
             IUserDal ud = new IUserDal();
-            if (ud.Users.FirstOrDefault(a => a.UserName == user.UserName && a.Password == user.Password ) != null)
+            PWEncryption enc = new PWEncryption();
+            List<IUser> userToCheck = (from x in ud.Users
+                                      where x.UserName == user.UserName
+                                      select x).ToList<IUser>();
+
+
+            foreach (IUser iu in userToCheck)
             {
-                Session["UserName"] = user.UserName;
-                Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
-                return RedirectToAction("Index", "Home");
+                if (enc.validatePassword(user.Password, iu.Password))
+                {
+                    Session["UserName"] = user.UserName;
+                    Session["Location"] = RegionInfo.CurrentRegion.DisplayName;
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            TempData["LoginMessage"] = "Invalid User Name or Password";
+            TempData["LoginMessage"] = "Invalid User Name/Password";
             return RedirectToAction("TryRegister", "Account");
         }
 
@@ -100,14 +115,19 @@ namespace MVCApplication1.Controllers
             if (ModelState.IsValid)
             {
                 IUserDal ud = new IUserDal();
-                /*check if user allready exist */
-                if (ud.Users.FirstOrDefault(a => a.Email == user.Email) != null)
+                //check if user allready exist
+                List<IUser> userToCheck = (from x in ud.Users
+                                           where x.Email == user.Email
+                                           select x).ToList<IUser>();
+                if (userToCheck.Count == 1)
                 {
                     TempData["RegisterMessage"] = "Mail is allready exist";
-                    TempData["Register"] = "value";
+                    TempData["Register"] = "Register";
                     return View("Register");
                 }
-                
+                //password hashing
+                PWEncryption enc = new PWEncryption();
+                user.Password = enc.createHash(user.Password);
                 ud.Users.Add(user);
                 ud.SaveChangesAsync();
                 Session["UserName"] = user.UserName;
@@ -121,7 +141,8 @@ namespace MVCApplication1.Controllers
 
         public ActionResult TryRegister(UserRegister ur)
         {
-
+            if (ur.UserName != null)
+                TempData["Register"] = "Register";
             return View("Register");
         }
 
@@ -130,28 +151,11 @@ namespace MVCApplication1.Controllers
             return View();
         }
 
-        public ActionResult FileUpload(HttpPostedFileBase file)
+        public ActionResult Landing()
         {
-            if (file != null)
-            {
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/images/profile"), pic);
-                // file is uploaded
-                file.SaveAs(path);
-
-                // save the image path path to the database or you can send image 
-                // directly to database
-                // in-case if you want to store byte[] ie. for DB
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                }
-
-            }
-            // after successfully uploading redirect the user
-            return RedirectToAction("actionname", "controller name");
+            TempData["landing"] = "landing";
+            return View("Register");
         }
+
     }
 }

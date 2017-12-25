@@ -9,18 +9,12 @@ namespace ShookOnline.Controllers
         public ActionResult Index(IUser u)
         {
             return View();
-        }
-
-        public ActionResult Landing()
-        {
-            return View();
-        }
-       
+        }       
         public ActionResult LogOff()
         {
             Session.Clear();
 
-            return View("Landing");
+            return RedirectToAction("Landing", "Account");
         }
     }
 }

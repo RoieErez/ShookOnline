@@ -43,9 +43,10 @@ namespace ShookOnline.Models
 
     public class EUser
     {
-        [Key]
+        
         public string ProviderKey { get; set; }
         public string UserName { get; set; }
+        [Key]
         public string Email { get; set; }
 
         /*copy constructor for social login*/
