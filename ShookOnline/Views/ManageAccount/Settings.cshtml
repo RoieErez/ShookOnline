@@ -249,13 +249,67 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                    <select class="form-control" id="itemCondition" name="itemCondition">
+                        <option value="new">New Product</option>
+                        <option value="used">Used</option>
+                        <option value="inAbox">Still in a box</option>
+                        <option value="Irrelevant">Irrelevant</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required>
+                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number">
+                </div>
+                <div id="toHide">
+                    <div id="cars">
+                        <div class="form-group">
+                            <select class="form-control" id="manufacturer" name="manufacturer">
+                                <option value="#" style="font-weight:bold;">Manufacturer</option>
+                                <
+                                  @{ 
+                                      List<string> manu = new List<string>(new string[] {"Audi","Opel", "Toyota","Infinity","Alfa-Romeo","MG","Aston martin","BMW","Buick","Jeep","Dacia","Dodge","Daewoo","Daihatsu","Honda","Volvo","Toyota","Jaguar","Hyundai","Lada","Lincoln","Lexus","Mazda","Mitsubishi","Mercedes","Nissan","Sabb","Subaru","Suzuki","Siat","Smart", "Citroen","Smart","Skoda","Fiat", "Peugeot","Ferrari","Kia", "Cadillac","Rover","Renault","Chevrolet" });
+                                      manu.Sort();
+                                      for (int i=0;i<manu.Count;i++)
+                                      {
+                                          <option value="@manu[i]">@manu[i]</option>
+                                      }
+                                  }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="GearBox" name="GearBox">
+                                <option value="#" style="font-weight:bold;">GearBox</option>
+                                <
+                                @{
+                                    List<string> gear = new List<string>(new string[] {"Automatic transmission","Manual GearBox","Robotic GearBox"});
+                                    gear.Sort();
+                                    for (int i = 0; i < gear.Count; i++)
+                                    {
+                                        <option value="@gear[i]">@gear[i]</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="Engine type" name="Engine type">
+                                <option value="#" style="font-weight:bold;">Engine type</option>
+                                <
+                                @{
+                                    List<string> eng = new List<string>(new string[] { "Diesel","Gasolin","Turbo Diesel","Electric","Hybrid" });
+                                    eng.Sort();
+                                    for (int i = 0; i < eng.Count; i++)
+                                    {
+                                        <option value="@eng[i]">@eng[i]</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div id="freeStuff">
+                        free stuff form
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                    <input type="text" class="form-control" id="Price" name="Price" placeholder="Price" required>
                 </div>
                 <div class="form-group">
                     <textarea class="form-control" type="textarea" id="discription" placeholder="Discription" maxlength="140" rows="7"></textarea>
@@ -665,7 +719,12 @@
 </style>
 
 <script>
+
     $(document).ready(function () {
+        $("#toHide > div").each(function () {
+
+            $(this).hide();
+        });
         $('#characterLeft').text('140 characters left');
         $('#message').keydown(function () {
             var max = 140;
@@ -682,6 +741,15 @@
                 $('#characterLeft').removeClass('red');
             }
         });
+        $("#itemType").change(function () {
+            $("#toHide > div").each(function () {
+
+                $(this).hide();
+            });
+            var val = $('select[name=itemType]').val();
+            $("#" + val).show();
+        });
+        
     });
     jQuery(document).ready(function ($) {
 
